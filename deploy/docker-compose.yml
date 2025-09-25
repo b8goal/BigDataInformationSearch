@@ -1,8 +1,7 @@
-version: '3.8'
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.4 # [1] Specify version
-    container_name: es01
+    build: . # [1] Build from local Dockerfile
+    image: elasticsearch-custom:8.11.4 # [1] Custom image name
     environment:
       - node.name=es01
       - cluster.name=es-docker-cluster
@@ -22,7 +21,6 @@ services:
       - "9300:9300"
   kibana:
     image: docker.elastic.co/kibana/kibana:8.11.4 # [1] Match ES version
-    container_name: kib01
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200 # [4] ES address (http -> https)
       - ELASTICSEARCH_SERVICEACCOUNTTOKEN=AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS1zZXJ2aWNlLWFjY291bnQ6b3A3dXRuWGxTa1dWY2ttTmwycjROQQ
